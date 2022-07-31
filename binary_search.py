@@ -10,7 +10,6 @@ LOGGER.setLevel(logging.ERROR)
 def binary_search_recursive(sorted_array: list, k: int, start: int, end: int) -> int:
     """
     This is the recursive implementation of binary_search.
-
     Args:
         sorted_array: a sorted array
         k: element we are looking for
@@ -26,9 +25,9 @@ def binary_search_recursive(sorted_array: list, k: int, start: int, end: int) ->
             LOGGER.debug(f"The element {k} was found at index {mid_index}")
             return mid_index
         if k > sorted_array[mid_index]:
-            return binary_search(sorted_array, k, start=mid_index + 1, end=len(sorted_array) - 1)
+            return binary_search_recursive(sorted_array, k, start=mid_index + 1, end=len(sorted_array) - 1)
         if k < sorted_array[mid_index]:
-            return binary_search(sorted_array, k, start=0, end=mid_index - 1)
+            return binary_search_recursive(sorted_array, k, start=0, end=mid_index - 1)
     else:
         LOGGER.debug(f"The element {k} was not found.")
         return -1
@@ -37,7 +36,6 @@ def binary_search_recursive(sorted_array: list, k: int, start: int, end: int) ->
 def binary_search_iter(sorted_array: list, k: int, start: int, end: int) -> int:
     """
     This is the iterative implementation of binary_search.
-
     Args:
         sorted_array: a sorted array
         k: element we are looking for
@@ -62,7 +60,6 @@ def binary_search_iter(sorted_array: list, k: int, start: int, end: int) -> int:
 
 def test_and_time(binary_function: Callable) -> float:
     """ Function to test and calculate time of execution
-
     Args:
         binary_function: name of the binary search function
     Returns:
@@ -80,7 +77,7 @@ def test_and_time(binary_function: Callable) -> float:
 
 if __name__ == "__main__":
     iteration_count = 100
-    binary_search_avg = sum(test_and_time(binary_search) for _ in range(iteration_count))/ iteration_count
+    binary_search_avg = sum(test_and_time(binary_search_recursive) for _ in range(iteration_count))/ iteration_count
     binary_search__iter_avg = sum(test_and_time(binary_search_iter) for _ in range(iteration_count)) / iteration_count
-    print(f"Average time of execution for binary_search is {binary_search_avg}")  # 0.0115 seconds
+    print(f"Average time of execution for binary_search_recursive is {binary_search_avg}")  # 0.0115 seconds
     print(f"Time of execution for binary_search_iter is {binary_search__iter_avg}")  # 0.0112 seconds
