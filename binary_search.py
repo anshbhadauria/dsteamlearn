@@ -7,7 +7,7 @@ LOGGER = logging.getLogger(__name__)
 LOGGER.setLevel(logging.ERROR)
 
 
-def binary_search(sorted_array: list, k: int, start: int, end: int) -> int:
+def binary_search_recursive(sorted_array: list, k: int, start: int, end: int) -> int:
     """
     This is the recursive implementation of binary_search.
 
